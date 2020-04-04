@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>订单管理页</title>
+<!-- Bootstrap核心CSS -->
+<link rel="stylesheet" href="/css/bootstrap.min.css">
+<!-- JQuery -->
+<script type="text/javascript" src="/js/jquery-3.4.1.min.js"></script>
+<!-- bootstrap的js -->
+<script type="text/javascript" src="/js/popper.min.js"></script>
+<script type="text/javascript" src="/js/bootstrap.min.js"></script>
+</head>
+<body onload="categoryChange()">
+	<!-- 首页标题 -->
+	<div th:include="template/header::blog_header"></div>
+	<!-- 控制按钮 -->
+	<div class="text-center">
+		<button class="btn btn-primary" type="button" data-toggle="collapse"
+			data-target="#collapseExample1" aria-expanded="false"
+			aria-controls="collapseExample">已付款订单</button>
+		<button class="btn btn-warning" type="button" data-toggle="collapse"
+			data-target="#collapseExample2" aria-expanded="false"
+			aria-controls="collapseExample">已发货订单</button>
+		<button class="btn btn-danger" type="button" data-toggle="collapse"
+			data-target="#collapseExample3" aria-expanded="false"
+			aria-controls="collapseExample">已收货订单</button>
+	</div>
+	<!-- 已付款订单 -->
+	<div class="collapse" id="collapseExample1">
+		<div class="card card-body">
+			<table class="table">
+				<thead>
+					<tr>
+						<th scope="col">用户昵称</th>
+						<th scope="col">订单号</th>
+						<th scope="col">订单创建时间</th>
+						<th scope="col">订单总金额</th>
+						<th scope="col">订单状态</th>
+						<th scope="col">操作</th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr th:each="billUser:${billUserMap1}">
+						<td th:text="${billUser.value.nickname}"></td>
+						<td th:text="${billUser.key.id}"></td>
+						<td th:text="${billUser.key.create_time}"></td>
+						<td th:text="${billUser.key.money}"></td>
+						<td th:text="${billUser.key.status}"></td>
+						<td><a th:href="'/bills/'+${billUser.key.id}+'?status=已发货'">
+								<button>发货</button>
+						</a></td>
+					</tr>
+				</tbody>
+			</table>
+		</div>
+	</div>
+	<!-- 已发货订单 -->
+	<div class="collapse" id="collapseExample2">
+		<div class="card card-body">
+			<table class="table">
+				<thead>
+					<tr>
+						<th scope="col">用户昵称</th>
+						<th scope="col">订单号</th>
+						<th scope="col">订单创建时间</th>
+						<th scope="col">订单总金额</th>
+						<th scope="col">订单状态</th>
+						<th scope="col">操作</th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr th:each="billUser:${billUserMap2}">
+						<td th:text="${billUser.value.nickname}"></td>
+						<td th:text="${billUser.key.id}"></td>
+						<td th:text="${billUser.key.create_time}"></td>
+						<td th:text="${billUser.key.money}"></td>
+						<td th:text="${billUser.key.status}"></td>
+						<td>
+							<button disabled>等待用户确认收货</button>
+						</td>
+					</tr>
+				</tbody>
+			</table>
+		</div>
+	</div>
+	<!-- 已收货订单 -->
+	<div class="collapse" id="collapseExample3">
+		<div class="card card-body">
+			<table class="table">
+				<thead>
+					<tr>
+						<th scope="col">用户昵称</th>
+						<th scope="col">订单号</th>
+						<th scope="col">订单创建时间</th>
+						<th scope="col">订单总金额</th>
+						<th scope="col">订单状态</th>
+						<th scope="col">操作</th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr th:each="billUser:${billUserMap3}">
+						<td th:text="${billUser.value.nickname}"></td>
+						<td th:text="${billUser.key.id}"></td>
+						<td th:text="${billUser.key.create_time}"></td>
+						<td th:text="${billUser.key.money}"></td>
+						<td th:text="${billUser.key.status}"></td>
+						<td>
+							<button disabled>订单已完结</button>
+						</td>
+					</tr>
+				</tbody>
+			</table>
+		</div>
+	</div>
+
+
+
+</body>

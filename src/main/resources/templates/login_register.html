@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>登录注册页</title>
+<!-- Bootstrap核心CSS -->
+<link rel="stylesheet" href="/css/bootstrap.min.css">
+<!-- JQuery -->
+<script type="text/javascript" src="/js/jquery-3.4.1.min.js"></script>
+<!-- 引入自定义javascript -->
+<script type="text/javascript" src="/js/login_register.js"></script>
+</head>
+<body th:onload="startFunction()">
+	<!-- 首页标题 -->
+	<div th:include="template/header::blog_header"></div>
+	<!-- 控制按钮 -->
+	<div class="row">
+		<div class="col-md-4"></div>
+		<div class="col-md-4">
+			<div class="btn-group d-flex justify-content-center" role="group"
+				aria-label="Basic example">
+				<button type="button" class="btn btn-secondary" onclick="login()">登录</button>
+				<button type="button" class="btn btn-secondary" onclick="register()">注册</button>
+			</div>
+		</div>
+		<div class="col-md-4"></div>
+	</div>
+	<!-- 登录 -->
+	<div id="login">
+		<form action="/authentication/authenticate" method="post">
+			<div class="row">
+				<div class="col-md-4"></div>
+				<div class="col-md-4">
+					<input type="text" name="username" class="form-control"
+						placeholder="账号">
+				</div>
+				<div class="col-md-4"></div>
+			</div>
+			<div class="row">
+				<div class="col-md-4"></div>
+				<div class="col-md-4">
+					<input type="password" name="password" class="form-control"
+						placeholder="密码">
+				</div>
+				<div class="col-md-4"></div>
+			</div>
+			<div class="row">
+				<div class="col-md-4"></div>
+				<div class="col-md-4 text-center">
+					<button type="submit" class="btn btn-info">登录</button>
+				</div>
+				<div class="col-md-4"></div>
+			</div>
+		</form>
+	</div>
+	<!-- 注册 -->
+	<div id="register">
+		<form action="/users" method="post">
+			<div class="row">
+				<div class="col-md-4"></div>
+				<div class="col-md-4">
+					<input type="text" name="username" class="form-control"
+						placeholder="账号 6-15位 由数字与大小写字母组成">
+				</div>
+				<div class="col-md-4"></div>
+			</div>
+			<div class="row">
+				<div class="col-md-4"></div>
+				<div class="col-md-4">
+					<input type="password" name="password" class="form-control"
+						placeholder="密码 6-15位 由数字与大小写字母组成">
+				</div>
+				<div class="col-md-4"></div>
+			</div>
+			<div class="row">
+				<div class="col-md-4"></div>
+				<div class="col-md-4 text-center">
+					<button type="submit" class="btn btn-info">注册</button>
+				</div>
+				<div class="col-md-4"></div>
+			</div>
+		</form>
+	</div>
+</body>

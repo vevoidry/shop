@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>购物车</title>
+<!-- Bootstrap核心CSS -->
+<link rel="stylesheet" href="/css/bootstrap.min.css">
+<!-- JQuery -->
+<script type="text/javascript" src="/js/jquery-3.4.1.min.js"></script>
+</head>
+<body>
+	<!-- 首页标题 -->
+	<div th:include="template/header::blog_header"></div>
+	<table class="table">
+		<thead>
+			<tr>
+				<th scope="col">商品图片</th>
+				<th scope="col">商品标题</th>
+				<th scope="col">商品单价</th>
+				<th scope="col">购买数量</th>
+				<th scope="col">商品总价</th>
+				<th scope="col">删除</th>
+			</tr>
+		</thead>
+		<tbody>
+			<tr th:if="${cartProductMap}!=null"
+				th:each="cartProduct:${cartProductMap}">
+				<td><img th:src="'/image/'+${cartProduct.value.image}"
+					height="100px" width="100px" /></td>
+				<td th:text="${cartProduct.value.title}"></td>
+				<td th:text="${cartProduct.value.price}"></td>
+				<td th:text="${cartProduct.key.product_quantity}"></td>
+				<td
+					th:text="${cartProduct.value.price}*${cartProduct.key.product_quantity}"></td>
+				<td><a th:href="'/carts/'+${cartProduct.key.id}"><button
+							type="button" class="btn btn-danger">删除</button></a></td>
+			</tr>
+		</tbody>
+	</table>
+	<div th:if="${money_sum}!=0">
+		<form action="/bills" method="post">
+			<button type="submit" class="btn btn-primary"
+				th:text="'支付：￥'+${money_sum}+'元'"></button>
+		</form>
+	</div>
+	<div th:if="${money_sum}==0">
+		<div>购物车空空的</div>
+	</div>
+</body>
+</html>

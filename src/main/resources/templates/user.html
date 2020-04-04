@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>用户页</title>
+<!-- Bootstrap核心CSS -->
+<link rel="stylesheet" href="/css/bootstrap.min.css">
+<!-- JQuery -->
+<script type="text/javascript" src="/js/jquery-3.4.1.min.js"></script>
+<!-- bootstrap的js -->
+<script type="text/javascript" src="/js/popper.min.js"></script>
+<script type="text/javascript" src="/js/bootstrap.min.js"></script>
+</head>
+<body>
+	<!-- 首页标题 -->
+	<div th:include="template/header::blog_header"></div>
+	<!-- 用户信息 -->
+	<img th:src="'/image/'+${session.user.image}"
+		class="rounded mx-auto d-block" height="300px" width="300px">
+	<h2 class="text-center" th:text="${session.user.nickname}"></h2>
+	<h3 class="text-center" th:text="${session.user.gender}"></h3>
+	<div class="text-center">
+		<a href="/users/edit"><button type="button"
+				class="btn btn-primary">修改</button></a>
+	</div>
+	<div th:if="${session.user.role}=='admin'">
+		<div class="row justify-content-md-center">
+			<button type="button" class="btn btn-warning btn-lg">管理员</button>
+		</div>
+		<div class="row justify-content-md-center">
+			<div class="col-md-auto">
+				<a href="/categorys"><button type="button"
+						class="btn btn-warning">管理分类</button></a>
+			</div>
+			<div class="col-md-auto">
+				<a href="/products"><button type="button"
+						class="btn btn-warning">管理商品</button></a>
+			</div>
+			<div class="col-md-auto">
+				<a href="/bills/all"><button type="button"
+						class="btn btn-warning">管理订单</button></a>
+			</div>
+		</div>
+	</div>
+</body>

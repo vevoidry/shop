@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>用户信息修改页</title>
+<!-- Bootstrap核心CSS -->
+<link rel="stylesheet" href="/css/bootstrap.min.css">
+<!-- JQuery -->
+<script type="text/javascript" src="/js/jquery-3.4.1.min.js"></script>
+</head>
+<body>
+	<!-- 首页标题 -->
+	<div th:include="template/header::blog_header"></div>
+	<div class="row">
+		<div class="col-lg-3"></div>
+		<div class="col-lg-6">
+			<form action="/users" method="post" enctype="multipart/form-data">
+				<input type="hidden" name="_method" value="put" /> <img
+					th:src="'/image/'+${session.user.image}" class="img-thumbnail" /> <input
+					type="file" name="filename" class="form-control" /> <input
+					type="text" name="nickname" th:value="${session.user.nickname}"
+					class="form-control" />
+				<div th:if="${session.user.gender}=='男'">
+					性别：男<input type="radio" name="gender" value="男" checked="checked" />女<input
+						type="radio" name="gender" value="女" />
+				</div>
+				<div th:if="${session.user.gender}=='女'">
+					性别：男<input type="radio" name="gender" value="男" />女<input
+						type="radio" name="gender" value="女" checked="checked" />
+				</div>
+				<div>
+					<button type="submit" class="btn btn-primary">保存修改</button>
+				</div>
+			</form>
+		</div>
+		<div class="col-lg-3"></div>
+	</div>
+</body>

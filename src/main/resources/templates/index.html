@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>主页</title>
+<!-- Bootstrap核心CSS -->
+<link rel="stylesheet" href="/css/bootstrap.min.css">
+<!-- JQuery -->
+<script type="text/javascript" src="/js/jquery-3.4.1.min.js"></script>
+<!-- bootstrap的js -->
+<script type="text/javascript" src="/js/popper.min.js"></script>
+<script type="text/javascript" src="/js/bootstrap.min.js"></script>
+</head>
+<body>
+	<!-- 首页标题 -->
+	<div th:include="template/header::blog_header"></div>
+	<div class="row">
+		<div class="col-lg-2"></div>
+		<div class="col-lg-8">
+			<!-- 搜索栏 -->
+			<!-- <div class="input-group mb-3 dropdown">
+				<input type="text" oninput="onInput (event)"
+					class="form-control dropdown-toggle" placeholder="输入要搜索的内容"
+					id="searchInput" data-toggle="dropdown" aria-haspopup="true"
+					aria-expanded="false">
+				<div class="input-group-append">
+					<button class="btn btn-primary" type="button" onclick="search()">搜索</button>
+				</div>
+				<div id="searchInputDiv" class="dropdown-menu"
+					aria-labelledby="searchInput"></div>
+			</div> -->
+			<!-- 显示初级分类 -->
+			<ul class="nav justify-content-center bg-warning"
+				th:if="${categoryList}!=null">
+				<li class="nav-item" th:each="category:${categoryList}"><a
+					class="nav-link" th:href="'/?category_id='+${category.id}"><h4
+							class="text-dark font-weight-bolder" th:text="${category.name}"></h4></a></li>
+			</ul>
+			<!-- 显示二级分类 -->
+			<ul class="nav justify-content-center bg-info "
+				th:if="${categoryList2}!=null">
+				<li class="nav-item" th:each="category:${categoryList2}"><a
+					class="nav-link"
+					th:href="'/?category_id='+${category.parent_id}+'&category_id2='+${category.id}"><h5
+							class="text-muted font-weight-bold" th:text="${category.name}"></h5></a></li>
+			</ul>
+		</div>
+		<div class="col-lg-2"></div>
+	</div>
+	<!-- 显示商品 -->
+	<div class="row">
+		<div class="col-lg-1"></div>
+		<div class="row col-lg-10" th:if="${productList}!=null">
+			<div class="card col-lg-2" style="width: 18rem;"
+				th:each="product:${productList}">
+				<a th:href="'/products/'+${product.id}"><img
+					th:src="'/image/'+${product.image}" class="card-img-top" alt="商品图片"
+					height="200px"></a>
+				<div class="card-body">
+					<p class="card-text  text-dark font-weight-bolder"
+						th:text="${product.title}"></p>
+					<p class="card-text text-danger font-weight-bold"
+						th:text="'￥'+${product.price}"></p>
+				</div>
+			</div>
+		</div>
+		<div class="col-lg-1"></div>
+	</div>
+	<!-- 分页 -->
+	<nav th:if="${pageList}!=null">
+		<ul class="pagination justify-content-center">
+			<li class="page-item" th:each="page:${pageList}"><a
+				class="page-link"
+				th:href="'/?category_id='+${category_id}+'&category_id2='+${category_id2}+'&page='+${page}"
+				th:text="${page}"></a></li>
+		</ul>
+	</nav>
+</body>

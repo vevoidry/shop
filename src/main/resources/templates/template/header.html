@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<meta charset="UTF-8" />
+<body>
+	<!-- 首页标题 -->
+	<div th:fragment="blog_header">
+		<!-- 第一行 -->
+		<div class="btn-toolbar row bg-secondary text-white" role="toolbar"
+			aria-label="Toolbar with button groups">
+			<div class="col-lg-7"></div>
+			<div th:if="${session.user}==null" class="btn-group mr-2 col-lg-1"
+				role="group" aria-label="First group">
+				<a href="/authentication/login_register"><button type="button"
+						class="btn bg-primary text-white">登录/注册</button></a>
+			</div>
+			<div th:if="${session.user}!=null" class="btn-group col-lg-4"
+				role="group" aria-label="Third group">
+				<a href="/users">
+					<button type="button" class="btn bg-primary text-white">个人主页</button>
+				</a> <a href="/carts">
+					<button type="button" class="btn bg-primary text-white">购物车</button>
+				</a> <a href="/bills">
+					<button type="button" class="btn bg-primary text-white">订单</button>
+				</a> <a href="/authentication/logout"><button type="button"
+						class="btn bg-danger text-white">退出</button></a>
+			</div>
+		</div>
+		<!-- 第二行 -->
+		<div>
+			<a href="/"><h1 class="text-center">购物网</h1></a>
+		</div>
+	</div>
+</body>
+</html>

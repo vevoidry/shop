@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>分类管理页</title>
+<!-- Bootstrap核心CSS -->
+<link rel="stylesheet" href="/css/bootstrap.min.css">
+<!-- JQuery -->
+<script type="text/javascript" src="/js/jquery-3.4.1.min.js"></script>
+</head>
+<body>
+	<!-- 首页标题 -->
+	<div th:include="template/header::blog_header"></div>
+	<!-- 添加新分类 -->
+	<div>
+		<form action="/categorys" method="post">
+			<div class="row">
+				<div class="col-md-4"></div>
+				<div class="col-md-4">
+					<div>选择初级分类添加二级分类</div>
+					<select class="form-control" name="parent_id">
+						<option value="0">新增初级分类</option>
+						<option th:if="${categoryMap}!=null"
+							th:each="category:${categoryMap}" th:value="${category.key.id}"
+							th:text="${category.key.name}"></option>
+					</select>
+				</div>
+				<div class="col-md-4"></div>
+			</div>
+			<div class="row">
+				<div class="col-md-4"></div>
+				<div class="col-md-4">
+					<input type="text" name="name" class="form-control"
+						placeholder="新分类名">
+				</div>
+				<div class="col-md-4"></div>
+			</div>
+			<div class="row">
+				<div class="col-md-4"></div>
+				<div class="col-md-4 text-center">
+					<button type="submit" class="btn btn-info">添加分类</button>
+				</div>
+				<div class="col-md-4"></div>
+			</div>
+		</form>
+	</div>
+	<!-- 已上架的分类 -->
+	<h2 class="text-center">已上架的分类</h2>
+	<div class="row">
+		<div class="col-lg-2"></div>
+		<div class="col-lg-8">
+			<!-- 初级分类 -->
+			<table class="table table-bordered">
+				<tr>
+					<th scope="col">初级分类名</th>
+					<th scope="col">修改</th>
+					<th scope="col">下架（同时下架其下所有子分类及子分类下的所有商品）</th>
+				</tr>
+				<tr th:each="category:${categoryMap}">
+					<form action="/categorys" method="post">
+						<input type="hidden" name="_method" value="put" /> <input
+							type="text" name="id" th:value="${category.key.id}" hidden />
+						<td><input type="text" name="name"
+							th:value="${category.key.name}" /></td>
+						<td><button type="submit">修改</button></td>
+					</form>
+					<td><form action="/categorys" method="post">
+							<input type="hidden" name="_method" value="delete" /> <input
+								type="text" name="on_off" value="off" hidden /><input
+								type="text" name="id" th:value="${category.key.id}" hidden />
+							<button type="submit">下架</button>
+						</form></td>
+				</tr>
+			</table>
+			<!-- 二级分类 -->
+			<table class="table table-bordered">
+				<tr>
+					<th scope="col">初级分类名</th>
+					<th scope="col">二级分类名</th>
+					<th scope="col">修改</th>
+					<th scope="col">下架（同时下架该分类下的所有商品）</th>
+				</tr>
+				<div th:each="category:${categoryMap}">
+					<tr th:each="category2:${category.value}">
+						<td th:text="${category.key.name}"></td>
+						<form action="/categorys" method="post">
+							<input type="hidden" name="_method" value="put" /> <input
+								type="text" name="id" th:value="${category2.id}" hidden />
+							<td><input type="text" name="name"
+								th:value="${category2.name}" /></td>
+							<td><button type="submit">修改</button></td>
+						</form>
+						<td><form action="/categorys" method="post">
+								<input type="hidden" name="_method" value="delete" /><input
+									type="text" name="on_off" value="off" hidden /> <input
+									type="text" name="id" th:value="${category2.id}" hidden />
+								<button type="submit">下架</button>
+							</form></td>
+					</tr>
+				</div>
+			</table>
+		</div>
+		<div class="col-lg-2"></div>
+	</div>
+	<!-- 下架中的分类 -->
+	<h2 class="text-center">已下架的分类</h2>
+	<div class="row">
+		<div class="col-lg-2"></div>
+		<div class="col-lg-8">
+			<!-- 初级分类 -->
+			<table class="table table-bordered">
+				<tr>
+					<th scope="col">初级分类名</th>
+					<th scope="col">修改</th>
+					<th scope="col">上架（同时上架其下所有子分类及子分类下的所有商品）</th>
+				</tr>
+				<tr th:each="category:${categoryList2}">
+					<form action="/categorys" method="post">
+						<input type="hidden" name="_method" value="put" /> <input
+							type="text" name="id" th:value="${category.id}" hidden />
+						<td><input type="text" name="name"
+							th:value="${category.name}" /></td>
+						<td><button type="submit">修改</button></td>
+					</form>
+					<td><form action="/categorys" method="post">
+							<input type="hidden" name="_method" value="delete" /><input
+								type="text" name="on_off" value="on" hidden /> <input
+								type="text" name="id" th:value="${category.id}" hidden />
+							<button type="submit">上架</button>
+						</form></td>
+				</tr>
+			</table>
+			<!-- 二级分类 -->
+			<table class="table table-bordered">
+				<tr>
+					<th scope="col">初级分类名</th>
+					<th scope="col">二级分类名</th>
+					<th scope="col">修改</th>
+					<th scope="col">上架（同时上架该分类下的所有商品）</th>
+				</tr>
+				<div th:each="category:${categoryMap2}">
+					<tr th:each="category2:${category.value}">
+						<td th:text="${category.key.name}"></td>
+						<form action="/categorys" method="post">
+							<input type="hidden" name="_method" value="put" /> <input
+								type="text" name="id" th:value="${category2.id}" hidden />
+							<td><input type="text" name="name"
+								th:value="${category2.name}" /></td>
+							<td><button type="submit">修改</button></td>
+						</form>
+						<td><form action="/categorys" method="post">
+								<input type="hidden" name="_method" value="delete" /><input
+									type="text" name="on_off" value="on" hidden /> <input
+									type="text" name="id" th:value="${category2.id}" hidden />
+								<button type="submit">上架</button>
+							</form></td>
+					</tr>
+				</div>
+			</table>
+		</div>
+		<div class="col-lg-2"></div>
+	</div>
+</body>

@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>订单页</title>
+<!-- Bootstrap核心CSS -->
+<link rel="stylesheet" href="/css/bootstrap.min.css">
+<!-- JQuery -->
+<script type="text/javascript" src="/js/jquery-3.4.1.min.js"></script>
+<!-- bootstrap的js -->
+<script type="text/javascript" src="/js/popper.min.js"></script>
+<script type="text/javascript" src="/js/bootstrap.min.js"></script>
+</head>
+<body>
+	<!-- 首页标题 -->
+	<div th:include="template/header::blog_header"></div>
+	<script type="text/javascript">
+		var urge = function() {
+			alert("商家已收到催收通知，请耐心等待");
+		}
+	</script>
+	<!-- 已付款订单 -->
+	<div class="border">
+		<h1 class="bg-success text-white text-center font-weight-bolder">已付款订单</h1>
+		<table class="table">
+			<thead>
+				<tr>
+					<th scope="col">订单号</th>
+					<th scope="col">订单创建时间</th>
+					<th scope="col">订单总金额</th>
+					<th scope="col">订单状态</th>
+					<th scope="col">操作</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr th:each="bill:${billLIst1}">
+					<td th:text="${bill.id}"></td>
+					<td th:text="${bill.create_time}"></td>
+					<td th:text="${bill.money}"></td>
+					<td th:text="${bill.status}"></td>
+					<td><button onclick="urge()">催商家发货</button></td>
+				</tr>
+			</tbody>
+		</table>
+	</div>
+	<!-- 已发货订单 -->
+	<div class="border">
+		<h1 class=" bg-warning text-dark text-center font-weight-bolder">已发货订单</h1>
+		<table class="table">
+			<thead>
+				<tr>
+					<th scope="col">订单号</th>
+					<th scope="col">订单创建时间</th>
+					<th scope="col">订单总金额</th>
+					<th scope="col">订单状态</th>
+					<th scope="col">操作</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr th:each="bill:${billLIst2}">
+					<td th:text="${bill.id}"></td>
+					<td th:text="${bill.create_time}"></td>
+					<td th:text="${bill.money}"></td>
+					<td th:text="${bill.status}"></td>
+					<td><a
+						th:href="'/bills/'+${session.user.id}+'/'+${bill.id}+'?status=已收货'"><button>确认收货</button></a></td>
+				</tr>
+			</tbody>
+		</table>
+	</div>
+	<!-- 已收货订单 -->
+	<div class="border">
+		<h1 class=" bg-danger text-white text-center font-weight-bolder">已收货订单</h1>
+		<table class="table">
+			<thead>
+				<tr>
+					<th scope="col">订单号</th>
+					<th scope="col">订单创建时间</th>
+					<th scope="col">订单总金额</th>
+					<th scope="col">订单状态</th>
+					<th scope="col">操作</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr th:each="bill:${billLIst3}">
+					<td th:text="${bill.id}"></td>
+					<td th:text="${bill.create_time}"></td>
+					<td th:text="${bill.money}"></td>
+					<td th:text="${bill.status}"></td>
+					<td><button disabled>订单已完结</button></td>
+				</tr>
+			</tbody>
+		</table>
+	</div>
+</body>
+</html>

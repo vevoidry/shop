@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>商品信息修改页</title>
+<!-- Bootstrap核心CSS -->
+<link rel="stylesheet" href="/css/bootstrap.min.css">
+<!-- JQuery -->
+<script type="text/javascript" src="/js/jquery-3.4.1.min.js"></script>
+<!-- bootstrap的js -->
+<script type="text/javascript" src="/js/popper.min.js"></script>
+<script type="text/javascript" src="/js/bootstrap.min.js"></script>
+</head>
+<body onload="categoryChange()">
+	<!-- 首页标题 -->
+	<div th:include="template/header::blog_header"></div>
+	<div class="row">
+		<!-- 左侧空白 -->
+		<div class="col-md-4"></div>
+		<!-- 商品修改区域 -->
+		<div class="col-md-4">
+			<!-- 添加 -->
+			<form action="/products" method="post" enctype="multipart/form-data">
+				<input type="hidden" name="_method" value="put" /> <input
+					type="text" name="id" th:value="${product.id}" hidden />
+				<div>
+					<img th:src="'/image/'+${product.image}" height="200px"
+						width="200pxx">
+				</div>
+				<div class="form-group">
+					<label for="exampleFormControlFile1">商品图片</label> <input
+						type="file" name="filename" class="form-control-file"
+						id="exampleFormControlFile1">
+				</div>
+				<div>
+					<input type="text" name="title" class="form-control"
+						placeholder="商品标题" th:value="${product.title}">
+				</div>
+				<div>
+					<input type="text" name="content" class="form-control"
+						placeholder="商品描述" th:value="${product.content}">
+				</div>
+				<div>
+					<input type="text" name="price" class="form-control"
+						placeholder="商品单价" th:value="${product.price}">
+				</div>
+				<div>
+					<input type="text" name="quantity" class="form-control"
+						placeholder="商品库存" th:value="${product.quantity}">
+				</div>
+				<div>
+					<button type="submit" class="btn btn-info">修改商品</button>
+				</div>
+			</form>
+		</div>
+		<!-- 右侧空白 -->
+		<div class="col-md-4"></div>
+	</div>
+</body>
